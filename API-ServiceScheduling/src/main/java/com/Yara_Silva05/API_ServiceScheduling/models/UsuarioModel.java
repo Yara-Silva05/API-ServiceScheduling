@@ -34,8 +34,15 @@ public class UsuarioModel implements Serializable {
     private CargoEnum cargo;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<AgendamentoModel> agendamentos = new HashSet<>();
+
+    public UsuarioModel(String nome, String email, String senha, String cargo) {
+        this.nome = nome.trim();
+        this.email = email.trim();
+        this.senha = senha.trim();
+        this.cargo = CargoEnum.valueOf(cargo.toUpperCase().trim());
+    }
 
     public UUID getId() {
         return id;
