@@ -1,15 +1,20 @@
 package com.Yara_Silva05.API_ServiceScheduling.models;
 
 import com.Yara_Silva05.API_ServiceScheduling.models.enums.CargoEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "TB_USUARIO")
 public class UsuarioModel implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,6 +33,10 @@ public class UsuarioModel implements Serializable {
     @Column(nullable = false)
     private CargoEnum cargo;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private Set<AgendamentoModel> agendamentos = new HashSet<>();
+
     public UUID getId() {
         return id;
     }
@@ -42,5 +51,37 @@ public class UsuarioModel implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public CargoEnum getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(CargoEnum cargo) {
+        this.cargo = cargo;
+    }
+
+    public Set<AgendamentoModel> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(Set<AgendamentoModel> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 }

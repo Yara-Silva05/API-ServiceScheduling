@@ -9,4 +9,8 @@ public enum CargoEnum {
     CargoEnum(String cargoRelatorio) {
         this.cargoRelatorio = cargoRelatorio;
     }
+
+    public String getCargoRelatorio() {
+        return cargoRelatorio;
+    }
 }
