@@ -1,7 +1,7 @@
-package com.Yara_Silva05.API_ServiceScheduling.controllers;
+package com.Yara_Silva05.API_ServiceScheduling.controllers.exceptionsHandler;
 
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EmailExistenteException;
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.UsuarioNaoEncontradoException;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,8 +9,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    private ResponseEntity<String> usuarioNaoEncontradoHandler(UsuarioNaoEncontradoException exception) {
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    private ResponseEntity<String> usuarioNaoEncontradoHandler(EntidadeNaoEncontradaException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

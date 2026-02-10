@@ -4,7 +4,7 @@ import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarUsuarioRequ
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.UsuarioRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.UsuarioResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EmailExistenteException;
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.UsuarioNaoEncontradoException;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
 import com.Yara_Silva05.API_ServiceScheduling.models.UsuarioModel;
 import com.Yara_Silva05.API_ServiceScheduling.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    //POST
     @Transactional
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO body){
         UsuarioModel usuario = new UsuarioModel(
@@ -41,6 +42,7 @@ public class UsuarioService {
         }
     }
 
+    //GET ALL
     public List<UsuarioResponseDTO> buscarTodosUsuarios() {
          List<UsuarioModel> usuarios = usuarioRepository.findAll();
          List<UsuarioResponseDTO> dtos = new ArrayList<>();
@@ -51,15 +53,17 @@ public class UsuarioService {
          return dtos;
     }
 
+    //GET BY ID
     public UsuarioResponseDTO buscarUsuarioPorID(UUID id){
         Optional<UsuarioModel> usuario = usuarioRepository.findById(id);
         if (usuario.isPresent()) {
             return converterUsuarioParaResponseDTO(usuario.get());
         } else {
-            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
+            throw new EntidadeNaoEncontradaException("Usuário não encontrado");
         }
     }
 
+    //PUT BY ID
     public UsuarioResponseDTO atualizarUsuario(UUID id, AtualizarUsuarioRequestDTO body){
         Optional<UsuarioModel> usuario = usuarioRepository.findById(id);
 
@@ -72,15 +76,17 @@ public class UsuarioService {
 
             return converterUsuarioParaResponseDTO(usuario.get());
         } else {
-            throw new UsuarioNaoEncontradoException("Usuário não encontrado");
+            throw new EntidadeNaoEncontradaException("Usuário não encontrado");
         }
     }
 
+    //DELETE
     @Transactional
     public void deletarUsuario(UUID id) {
         usuarioRepository.deleteById(id);
     }
 
+    //METODO AUXILIAR
     private UsuarioResponseDTO converterUsuarioParaResponseDTO(UsuarioModel usuario) {
         return new UsuarioResponseDTO(
                 usuario.getId(),

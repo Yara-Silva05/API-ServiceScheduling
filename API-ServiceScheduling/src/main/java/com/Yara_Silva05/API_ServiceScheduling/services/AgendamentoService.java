@@ -1,0 +1,123 @@
+package com.Yara_Silva05.API_ServiceScheduling.services;
+
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AgendamentoRequestDTO;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoResquest;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.AgendamentoResponseDTO;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
+import com.Yara_Silva05.API_ServiceScheduling.models.AgendamentoModel;
+import com.Yara_Silva05.API_ServiceScheduling.models.UsuarioModel;
+import com.Yara_Silva05.API_ServiceScheduling.repositories.AgendamentoRepository;
+import com.Yara_Silva05.API_ServiceScheduling.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public class AgendamentoService {
+
+    @Autowired
+    private AgendamentoRepository agendamentoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    //POST
+    @Transactional
+    public AgendamentoResponseDTO criarAgendamento(AgendamentoRequestDTO body){
+
+        Optional<UsuarioModel> usuario = usuarioRepository.findById(body.idUsuario());
+        if (usuario.isPresent()) {
+            AgendamentoModel agendamento = new AgendamentoModel(
+                    body.descricao(),
+                    body.inicioAgendamento(),
+                    body.encerramentoAgendamento()
+            );
+
+            usuario.get().adicionarAgendamento(agendamento);
+            usuarioRepository.save(usuario.get());
+
+            return new AgendamentoResponseDTO(
+                    usuario.get().getEmail(),
+                    usuario.get().getNome(),
+                    agendamento.getDescricao(),
+                    agendamento.getInicio(),
+                    agendamento.getEncerramento()
+            );
+        }else {
+            throw new EntidadeNaoEncontradaException("Usuário não encontrado");
+        }
+    }
+
+    //GET ALL
+    public List<AgendamentoResponseDTO> buscarTodosAgendamentos() {
+
+        List<AgendamentoModel> agendamentos = agendamentoRepository.findAll();
+
+        List<AgendamentoResponseDTO> dtos = new ArrayList<>();
+
+        for (AgendamentoModel agendamento: agendamentos) {
+            dtos.add(converterAgendamentoParaResponseDTO(agendamento,buscarUsuarioPorAgendamento(agendamento)));
+        }
+        return dtos;
+    }
+
+    //GET BY ID
+    public AgendamentoResponseDTO buscarAgendamentoPorID(UUID id){
+
+        Optional<AgendamentoModel> agendamento = agendamentoRepository.findById(id);
+
+        if (agendamento.isPresent()) {
+            return converterAgendamentoParaResponseDTO(agendamento.get(), buscarUsuarioPorAgendamento(agendamento.get()));
+        } else {
+            throw new EntidadeNaoEncontradaException("Agendamento não encontrado");
+        }
+    }
+
+    //PUT BY ID
+    public AgendamentoResponseDTO atualizarAgendamento(UUID id, AtualizarAgendamentoResquest body){
+        Optional<AgendamentoModel> agendamento = agendamentoRepository.findById(id);
+
+        if (agendamento.isPresent()) {
+
+            agendamento.get().setInicio(body.inicioAgendamento());
+            agendamento.get().setEncerramento(body.encerramentoAgendamento());
+
+            agendamentoRepository.save(agendamento.get());
+
+            return converterAgendamentoParaResponseDTO(agendamento.get(), buscarUsuarioPorAgendamento(agendamento.get()));
+        } else {
+            throw new EntidadeNaoEncontradaException("Agendamento não encontrado");
+        }
+    }
+
+    //DELETE
+    @Transactional
+    public void deletarAgendamento(UUID id) {
+        agendamentoRepository.deleteById(id);
+    }
+
+    //METODOS AUXILIARES
+    private UsuarioModel buscarUsuarioPorAgendamento (AgendamentoModel agendamento) {
+
+        Optional<UsuarioModel> usuario = usuarioRepository.findById(agendamento.getUsuario().getId());
+        if (usuario.isPresent()) {
+            return usuario.get();
+        }
+        else {
+            throw new EntidadeNaoEncontradaException("Usuário não encontrado");
+        }
+    }
+
+    private AgendamentoResponseDTO converterAgendamentoParaResponseDTO(AgendamentoModel agendamento, UsuarioModel usuario) {
+        return new AgendamentoResponseDTO(
+                usuario.getEmail(),
+                usuario.getNome(),
+                agendamento.getDescricao(),
+                agendamento.getInicio(),
+                agendamento.getEncerramento()
+        );
+    }
+}

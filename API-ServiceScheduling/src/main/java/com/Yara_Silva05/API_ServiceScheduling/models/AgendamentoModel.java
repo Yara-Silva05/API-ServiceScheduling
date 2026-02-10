@@ -3,11 +3,11 @@ package com.Yara_Silva05.API_ServiceScheduling.models;
 import com.Yara_Silva05.API_ServiceScheduling.models.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 
 @Entity
 @Table(name = "TB_AGENDAMENTOS")
@@ -26,7 +26,10 @@ public class AgendamentoModel implements Serializable {
     private UsuarioModel usuario;
 
     @Column(nullable = false)
-    private StatusEnum status;
+    private String descricao;
+
+    @Column(nullable = false)
+    private StatusEnum status = StatusEnum.AGENDADO;
 
     @Column(nullable = false)
     private LocalDateTime inicio;
@@ -36,6 +39,12 @@ public class AgendamentoModel implements Serializable {
 
     @Column(nullable = false)
     private final LocalDateTime dataCriacao = LocalDateTime.now();
+
+    public AgendamentoModel(String descricao, LocalDateTime inicio, LocalDateTime encerramento) {
+        this.descricao = descricao;
+        this.inicio = inicio;
+        this.encerramento = encerramento;
+    }
 
     public UUID getId() {
         return id;
@@ -75,5 +84,13 @@ public class AgendamentoModel implements Serializable {
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

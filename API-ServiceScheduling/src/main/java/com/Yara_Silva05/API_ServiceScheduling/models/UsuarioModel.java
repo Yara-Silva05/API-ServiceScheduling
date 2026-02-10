@@ -88,7 +88,7 @@ public class UsuarioModel implements Serializable {
         return agendamentos;
     }
 
-    public void setAgendamentos(Set<AgendamentoModel> agendamentos) {
-        this.agendamentos = agendamentos;
+    public void adicionarAgendamento(AgendamentoModel agendamentoModel) {
+        agendamentos.add(agendamentoModel);
     }
 }
