@@ -1,7 +1,7 @@
 package com.Yara_Silva05.API_ServiceScheduling.services;
 
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AgendamentoRequestDTO;
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoResquest;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequest;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.AgendamentoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
 import com.Yara_Silva05.API_ServiceScheduling.models.AgendamentoModel;
@@ -9,13 +9,14 @@ import com.Yara_Silva05.API_ServiceScheduling.models.UsuarioModel;
 import com.Yara_Silva05.API_ServiceScheduling.repositories.AgendamentoRepository;
 import com.Yara_Silva05.API_ServiceScheduling.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class AgendamentoService {
 
     @Autowired
@@ -77,7 +78,7 @@ public class AgendamentoService {
     }
 
     //PUT BY ID
-    public AgendamentoResponseDTO atualizarAgendamento(UUID id, AtualizarAgendamentoResquest body){
+    public AgendamentoResponseDTO atualizarAgendamento(UUID id, AtualizarAgendamentoRequest body){
         Optional<AgendamentoModel> agendamento = agendamentoRepository.findById(id);
 
         if (agendamento.isPresent()) {
