@@ -1,7 +1,7 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers;
 
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AgendamentoRequestDTO;
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequest;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.AgendamentoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.services.AgendamentoService;
 import jakarta.validation.Valid;
@@ -37,7 +37,7 @@ public class AgendamentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AgendamentoResponseDTO> atualizarUsuario (@PathVariable(value = "id")UUID id,
-                                                                @RequestBody @Valid AtualizarAgendamentoRequest body) {
+                                                                @RequestBody @Valid AtualizarAgendamentoRequestDTO body) {
         return ResponseEntity.status(HttpStatus.OK).body(agendamentoService.atualizarAgendamento(id, body));
     }
 

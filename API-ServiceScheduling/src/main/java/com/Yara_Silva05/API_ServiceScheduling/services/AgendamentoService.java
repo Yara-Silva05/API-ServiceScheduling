@@ -1,12 +1,14 @@
 package com.Yara_Silva05.API_ServiceScheduling.services;
 
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AgendamentoRequestDTO;
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequest;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.AgendamentoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.PeriodoNaoDisponivelException;
 import com.Yara_Silva05.API_ServiceScheduling.models.AgendamentoModel;
 import com.Yara_Silva05.API_ServiceScheduling.models.UsuarioModel;
 import com.Yara_Silva05.API_ServiceScheduling.repositories.AgendamentoRepository;
+import com.Yara_Silva05.API_ServiceScheduling.repositories.PeriodoBloqueadoRepository;
 import com.Yara_Silva05.API_ServiceScheduling.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +27,16 @@ public class AgendamentoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PeriodoBloqueadoRepository periodoBloqueadoRepository;
+
     //POST
     @Transactional
     public AgendamentoResponseDTO criarAgendamento(AgendamentoRequestDTO body){
+
+        if (periodoBloqueadoRepository.existePeriodoBloqueadoConflitante(body.inicioAgendamento(),body.encerramentoAgendamento())) {
+            throw new PeriodoNaoDisponivelException();
+        }
 
         Optional<UsuarioModel> usuario = usuarioRepository.findById(body.idUsuario());
         if (usuario.isPresent()) {
@@ -78,7 +87,12 @@ public class AgendamentoService {
     }
 
     //PUT BY ID
-    public AgendamentoResponseDTO atualizarAgendamento(UUID id, AtualizarAgendamentoRequest body){
+    public AgendamentoResponseDTO atualizarAgendamento(UUID id, AtualizarAgendamentoRequestDTO body){
+
+        if (periodoBloqueadoRepository.existePeriodoBloqueadoConflitante(body.inicioAgendamento(),body.encerramentoAgendamento())) {
+            throw new PeriodoNaoDisponivelException();
+        }
+
         Optional<AgendamentoModel> agendamento = agendamentoRepository.findById(id);
 
         if (agendamento.isPresent()) {

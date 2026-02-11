@@ -1,6 +1,6 @@
 package com.Yara_Silva05.API_ServiceScheduling.services;
 
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueado;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.PeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.PeriodoBloqueadoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
@@ -72,7 +72,7 @@ public class PeriodoBloqueadoService {
     }
 
     //PUT BY ID
-    public PeriodoBloqueadoResponseDTO atualizarPeriodoBloqueado(UUID id, AtualizarPeriodoBloqueado body){
+    public PeriodoBloqueadoResponseDTO atualizarPeriodoBloqueado(UUID id, AtualizarPeriodoBloqueadoRequestDTO body){
         Optional<PeriodoBloqueadoModel> periodoBloqueado = periodoBloqueadoRepository.findById(id);
 
         if (periodoBloqueado.isPresent()) {

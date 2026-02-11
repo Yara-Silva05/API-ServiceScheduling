@@ -1,5 +1,6 @@
 package com.Yara_Silva05.API_ServiceScheduling.models;
 
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.DataInvalidaException;
 import com.Yara_Silva05.API_ServiceScheduling.models.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -41,9 +42,13 @@ public class AgendamentoModel implements Serializable {
     private final LocalDateTime dataCriacao = LocalDateTime.now();
 
     public AgendamentoModel(String descricao, LocalDateTime inicio, LocalDateTime encerramento) {
-        this.descricao = descricao;
-        this.inicio = inicio;
-        this.encerramento = encerramento;
+        if (inicio.isBefore(encerramento)) {
+            this.descricao = descricao;
+            this.inicio = inicio;
+            this.encerramento = encerramento;
+        }else {
+            throw new DataInvalidaException();
+        }
     }
 
     public UUID getId() {

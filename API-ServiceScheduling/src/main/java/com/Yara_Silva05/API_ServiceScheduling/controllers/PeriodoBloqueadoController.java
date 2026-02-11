@@ -1,5 +1,5 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers;
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueado;
+import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.PeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.PeriodoBloqueadoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.services.PeriodoBloqueadoService;
@@ -35,7 +35,7 @@ public class PeriodoBloqueadoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PeriodoBloqueadoResponseDTO> atualizarPeriodoBloqueado(@PathVariable(value = "id")UUID id,
-                                                                    @RequestBody @Valid AtualizarPeriodoBloqueado body) {
+                                                                    @RequestBody @Valid AtualizarPeriodoBloqueadoRequestDTO body) {
         return ResponseEntity.status(HttpStatus.OK).body(periodoBloqueadoService.atualizarPeriodoBloqueado(id, body));
     }
 

@@ -1,7 +1,9 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers.exceptionsHandler;
 
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.DataInvalidaException;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EmailExistenteException;
 import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.PeriodoNaoDisponivelException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,8 +23,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
+    @ExceptionHandler(PeriodoNaoDisponivelException.class)
+    private ResponseEntity<String> periodoNaoDisponivelHandler(PeriodoNaoDisponivelException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(DataInvalidaException.class)
+    private ResponseEntity<String> dataInvalidaExceptionlHandler(DataInvalidaException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     private ResponseEntity<String> excecaoGenericaHandler(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado: " + exception.getMessage());
     }
+
 }
