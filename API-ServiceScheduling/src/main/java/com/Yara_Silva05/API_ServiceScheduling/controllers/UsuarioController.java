@@ -21,7 +21,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody @Valid UsuarioRequestDTO body){
+    public ResponseEntity<UsuarioResponseDTO> criarUsuario (@RequestBody @Valid UsuarioRequestDTO body){
          return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.criarUsuario(body));
     }
 
@@ -43,8 +43,8 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletarUsuario(@PathVariable UUID id) {
+    public ResponseEntity<String> deletarUsuario (@PathVariable UUID id) {
         usuarioService.deletarUsuario(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso!.");
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso!");
     }
 }
