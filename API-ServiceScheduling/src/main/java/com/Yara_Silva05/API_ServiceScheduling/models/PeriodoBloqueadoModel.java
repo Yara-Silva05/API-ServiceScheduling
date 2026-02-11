@@ -1,7 +1,6 @@
 package com.Yara_Silva05.API_ServiceScheduling.models;
 
 import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -3,7 +3,6 @@ package com.Yara_Silva05.API_ServiceScheduling.models;
 import com.Yara_Silva05.API_ServiceScheduling.models.enums.CargoEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;

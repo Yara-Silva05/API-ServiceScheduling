@@ -1,9 +1,6 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers;
-
-import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarAgendamentoRequest;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueado;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.PeriodoBloqueadoRequestDTO;
-import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.AgendamentoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.PeriodoBloqueadoResponseDTO;
 import com.Yara_Silva05.API_ServiceScheduling.services.PeriodoBloqueadoService;
 import jakarta.validation.Valid;
