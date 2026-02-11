@@ -51,6 +51,9 @@ public class AgendamentoModel implements Serializable {
         }
     }
 
+    public AgendamentoModel() {
+    }
+
     public UUID getId() {
         return id;
     }

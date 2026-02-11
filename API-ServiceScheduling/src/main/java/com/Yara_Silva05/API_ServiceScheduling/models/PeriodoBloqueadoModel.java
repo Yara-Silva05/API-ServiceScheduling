@@ -41,6 +41,9 @@ public class PeriodoBloqueadoModel implements Serializable {
         this.razaoBloqueio = razaoBloqueio.trim();
     }
 
+    public PeriodoBloqueadoModel() {
+    }
+
     public UUID getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package com.Yara_Silva05.API_ServiceScheduling.models;
 
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.CargoInvalidoException;
 import com.Yara_Silva05.API_ServiceScheduling.models.enums.CargoEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -40,7 +41,14 @@ public class UsuarioModel implements Serializable {
         this.nome = nome.trim();
         this.email = email.trim();
         this.senha = senha.trim();
-        this.cargo = CargoEnum.valueOf(cargo.toUpperCase().trim());
+        try {
+            this.cargo = CargoEnum.valueOf(cargo.toUpperCase().trim());
+        }catch (IllegalArgumentException e){
+            throw new CargoInvalidoException();
+        }
+    }
+
+    public UsuarioModel() {
     }
 
     public UUID getId() {
