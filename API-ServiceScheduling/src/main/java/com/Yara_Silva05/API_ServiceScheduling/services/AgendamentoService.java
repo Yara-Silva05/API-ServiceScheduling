@@ -99,6 +99,7 @@ public class AgendamentoService {
 
             agendamento.get().setInicio(body.inicioAgendamento());
             agendamento.get().setEncerramento(body.encerramentoAgendamento());
+            agendamento.get().setDescricao(body.descricao());
 
             agendamentoRepository.save(agendamento.get());
 

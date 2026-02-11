@@ -43,7 +43,7 @@ public class AgendamentoModel implements Serializable {
 
     public AgendamentoModel(String descricao, LocalDateTime inicio, LocalDateTime encerramento) {
         if (inicio.isBefore(encerramento)) {
-            this.descricao = descricao;
+            this.descricao = descricao.trim();
             this.inicio = inicio;
             this.encerramento = encerramento;
         }else {

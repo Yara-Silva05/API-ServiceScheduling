@@ -1,5 +1,12 @@
 package com.Yara_Silva05.API_ServiceScheduling.dtos.requests;
 
-public record AtualizarUsuarioRequestDTO(String nome,
-                                         String email) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record AtualizarUsuarioRequestDTO(@NotBlank
+                                          String nome,
+
+                                          @Email
+                                          String email) {
+
 }

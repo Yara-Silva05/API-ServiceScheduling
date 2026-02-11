@@ -38,7 +38,7 @@ public class PeriodoBloqueadoModel implements Serializable {
         this.inicioPeriodoBloqueio = inicioPeriodoBloqueio;
         this.finalPeriodoBloqueio = finalPeriodoBloqueio;
         this.usuarioResponsavel = usuarioResponsavel;
-        this.razaoBloqueio = razaoBloqueio;
+        this.razaoBloqueio = razaoBloqueio.trim();
     }
 
     public UUID getId() {
