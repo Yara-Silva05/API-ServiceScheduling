@@ -1,14 +1,13 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers.exceptionsHandler;
 
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.DataInvalidaException;
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.EmailExistenteException;
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.EntidadeNaoEncontradaException;
-import com.Yara_Silva05.API_ServiceScheduling.exceptions.PeriodoNaoDisponivelException;
+import com.Yara_Silva05.API_ServiceScheduling.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Arrays;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -33,9 +32,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
+    @ExceptionHandler(CargoInvalidoException.class)
+    private ResponseEntity<String> cargoInvalidoExceptionHandler(CargoInvalidoException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     private ResponseEntity<String> excecaoGenericaHandler(Exception exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado: " + exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado: " + (exception.getClass().getCanonicalName() + exception.getMessage() + "\n" + Arrays.toString(exception.getStackTrace())));
     }
 
 }

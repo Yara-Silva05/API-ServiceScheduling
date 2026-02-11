@@ -1,7 +1,7 @@
 package com.Yara_Silva05.API_ServiceScheduling.models.enums;
 
 public enum CargoEnum {
-    USUARIO("Usuário"),
+    USUARIO("Usuario"),
     ADMIN("Administrador");
 
    private String cargoRelatorio;

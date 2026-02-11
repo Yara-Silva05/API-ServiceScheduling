@@ -32,7 +32,7 @@ public class UsuarioService {
                 body.cargo()
         );
         try {
-            usuarioRepository.save(usuario);
+            usuarioRepository.saveAndFlush(usuario);
 
             return converterUsuarioParaResponseDTO(usuario);
 
@@ -43,6 +43,7 @@ public class UsuarioService {
 
     //GET ALL
     public List<UsuarioResponseDTO> buscarTodosUsuarios() {
+
          List<UsuarioModel> usuarios = usuarioRepository.findAll();
          List<UsuarioResponseDTO> dtos = new ArrayList<>();
 
