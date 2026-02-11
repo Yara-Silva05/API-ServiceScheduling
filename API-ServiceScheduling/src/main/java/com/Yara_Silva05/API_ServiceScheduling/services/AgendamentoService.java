@@ -41,6 +41,7 @@ public class AgendamentoService {
         Optional<UsuarioModel> usuario = usuarioRepository.findById(body.idUsuario());
         if (usuario.isPresent()) {
             AgendamentoModel agendamento = new AgendamentoModel(
+                    usuario.get(),
                     body.descricao(),
                     body.inicioAgendamento(),
                     body.encerramentoAgendamento()
@@ -50,6 +51,7 @@ public class AgendamentoService {
             usuarioRepository.save(usuario.get());
 
             return new AgendamentoResponseDTO(
+                    agendamento.getId(),
                     usuario.get().getEmail(),
                     usuario.get().getNome(),
                     agendamento.getDescricao(),
@@ -129,6 +131,7 @@ public class AgendamentoService {
 
     private AgendamentoResponseDTO converterAgendamentoParaResponseDTO(AgendamentoModel agendamento, UsuarioModel usuario) {
         return new AgendamentoResponseDTO(
+                agendamento.getId(),
                 usuario.getEmail(),
                 usuario.getNome(),
                 agendamento.getDescricao(),

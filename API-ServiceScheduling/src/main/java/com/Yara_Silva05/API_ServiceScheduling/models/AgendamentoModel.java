@@ -23,7 +23,7 @@ public class AgendamentoModel implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 
     @Column(nullable = false)
@@ -41,8 +41,9 @@ public class AgendamentoModel implements Serializable {
     @Column(nullable = false)
     private final LocalDateTime dataCriacao = LocalDateTime.now();
 
-    public AgendamentoModel(String descricao, LocalDateTime inicio, LocalDateTime encerramento) {
+    public AgendamentoModel(UsuarioModel usuario, String descricao, LocalDateTime inicio, LocalDateTime encerramento) {
         if (inicio.isBefore(encerramento)) {
+            this.usuario = usuario;
             this.descricao = descricao.trim();
             this.inicio = inicio;
             this.encerramento = encerramento;
