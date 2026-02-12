@@ -48,7 +48,7 @@ public class AgendamentoService {
             );
 
             usuario.get().adicionarAgendamento(agendamento);
-            usuarioRepository.save(usuario.get());
+            agendamentoRepository.save(agendamento);
 
             return new AgendamentoResponseDTO(
                     agendamento.getId(),

@@ -13,4 +13,5 @@ public record AtualizarAgendamentoRequestDTO(@JsonFormat(pattern = "dd/MM/yyyy H
 
                                              @NotBlank
                                              String descricao){
+
 }
