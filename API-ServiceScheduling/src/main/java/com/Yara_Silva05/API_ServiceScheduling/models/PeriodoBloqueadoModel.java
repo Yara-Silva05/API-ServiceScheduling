@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_VAGA_BLOQUEADA")
+@Table(name = "TB_PERIODO_BLOQUEADO")
 public class PeriodoBloqueadoModel implements Serializable {
 
     @Serial

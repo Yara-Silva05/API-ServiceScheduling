@@ -1,4 +1,5 @@
 package com.Yara_Silva05.API_ServiceScheduling.controllers;
+
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.AtualizarPeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.requests.PeriodoBloqueadoRequestDTO;
 import com.Yara_Silva05.API_ServiceScheduling.dtos.responses.PeriodoBloqueadoResponseDTO;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/horarioBloqueado")
+@RequestMapping("/periodoBloqueado")
 public class PeriodoBloqueadoController {
 
     @Autowired

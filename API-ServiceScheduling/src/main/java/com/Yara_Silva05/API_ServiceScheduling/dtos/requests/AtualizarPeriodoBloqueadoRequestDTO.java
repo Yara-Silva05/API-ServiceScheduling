@@ -6,10 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public record AtualizarPeriodoBloqueadoRequestDTO(@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-                                                  LocalDateTime inicioBloqueio,
+                                                  LocalDateTime inicioPeriodoBloqueado,
 
                                                   @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-                                                  LocalDateTime encerramentoBloqueio,
+                                                  LocalDateTime encerramentoPeriodoBloqueado,
 
                                                   @NotBlank
                                                   String razaoBloqueio) {

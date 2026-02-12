@@ -32,8 +32,8 @@ public class PeriodoBloqueadoService {
         Optional<UsuarioModel> usuario = usuarioRepository.findById(body.idUsuarioResponsavel());
         if (usuario.isPresent()) {
             PeriodoBloqueadoModel periodoBloqueado = new PeriodoBloqueadoModel(
-                    body.inicioPeriodoBloqueio(),
-                    body.finalPeriodoBloqueio(),
+                    body.inicioPeriodoBloqueado(),
+                    body.encerramentoPeriodoBloqueado(),
                     usuario.get(),
                     body.razaoBloqueio());
 
@@ -77,8 +77,8 @@ public class PeriodoBloqueadoService {
 
         if (periodoBloqueado.isPresent()) {
 
-            periodoBloqueado.get().setInicioPeriodoBloqueio(body.inicioBloqueio());
-            periodoBloqueado.get().setFinalPeriodoBloqueio(body.encerramentoBloqueio());
+            periodoBloqueado.get().setInicioPeriodoBloqueio(body.inicioPeriodoBloqueado());
+            periodoBloqueado.get().setFinalPeriodoBloqueio(body.encerramentoPeriodoBloqueado());
             periodoBloqueado.get().setRazaoBloqueio(body.razaoBloqueio());
 
             periodoBloqueadoRepository.save(periodoBloqueado.get());
@@ -98,6 +98,7 @@ public class PeriodoBloqueadoService {
     //METODOS AUXILIARES
     private PeriodoBloqueadoResponseDTO converterPeriodoBloqueadoParaResponseDTO(PeriodoBloqueadoModel periodoBloqueado, UsuarioModel usuario) {
         return new PeriodoBloqueadoResponseDTO(
+                periodoBloqueado.getId(),
                 usuario.getEmail(),
                 usuario.getNome(),
                 periodoBloqueado.getRazaoBloqueio(),
